@@ -1,0 +1,56 @@
+{% extends "base.html" %} {% block mainbody %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <!--overview start-->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="resume-home">
+                            <a href="\">返回主界面</a>
+                    </div>
+                </div>
+            </div>
+            <div class="resume-reload-all">
+                <div class="resume-reload-top">
+                    请按下方提示提交简历 :
+                </div>
+                <div class="panel-body resume-body row">
+                    <div class="resume-reload">
+                        <form class="form-group resume">
+                            <div class="form-group">
+                               <div class="col-sm-3"></div>
+                               <div class="col-sm-6">
+                                   <div class="input-group">
+                                   <input id='location' class="form-control"  onclick="$('#i-file').click();">
+                                       <label class="input-group-btn">
+                                           <input type="button" id="i-check" value="点击上传简历" class="reload-input" onclick="$('#i-file').click();">
+                                       </label>
+                                   </div>
+                               </div>
+                               <div class="col-sm-3"></div>
+                               <input type="file" name="file_name" id='i-file'  onchange="$('#location').val($('#i-file').val());" style="display: none">
+                               <button type="reset" id="upload-again" onclick="$('#i-file').click();">重新上传</button>
+                            </div>
+
+                            <div id="hide-name">1</div>
+
+                        </form>
+                     </div>
+                     <p class="atttion-txet">注意：仅支持pdf，doc，docx，mht，html，txt格式</p>
+
+
+
+                    <div class="resume-start" id="resume-parse"> 开始解析 </div>
+
+
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,335 @@
+/*base页样式*/
+#container {
+    width: 100%;
+    height: 100%;
+}
+.resume-top{
+    width: 100%;
+    height: 60px;
+    border: 1px solid rgb(75,123,254);
+    background-color: rgb(75,123,254);;
+}
+.resume-logo{
+    width: 100px;
+    height: 60px;
+    font-size: 30px;
+    color: white;
+    line-height: 60px;
+    display: inline-block;
+    margin-left: 20px;
+}
+.resume-logo:hover{
+    text-decoration: none;
+    color: white;
+    font-size: 32px;
+     margin-left: 22px;
+}
+/*简历替换部分*/
+#main-content {
+    width: 100%;
+    height: 100%;
+}
+.wrapper {
+    display: inline-block;
+    width: 100%;
+}
+.resume-home{
+    width: 100%;
+    height: 40px;
+    padding: 0px 0px;
+    background-color: whitesmoke;
+    border: 1px solid whitesmoke;
+    border-radius:5px;
+    box-shadow:0 0 5px rgb(192,192,192);
+}
+.resume-home a{
+    display: inline-block;
+    width: 86px;
+    height: 40px;
+    margin-left: 10px;
+    line-height: 40px;
+    text-align:center;
+    color: black;
+    text-decoration: none;
+    font-size: 15px;
+}
+.resume-home a:hover{
+    color: rgb(75,123,254);
+    text-decoration: none;
+    margin-left: 12px;
+    font-size: 16px;
+}
+/*主index页简历上传*/
+.resume-reload-all{
+    width: 100%;
+    height: auto;
+    margin-top: 7px;
+    border: 1px solid whitesmoke;
+    border-radius:5px;
+    box-shadow:0 0 5px rgb(192,192,192);
+}
+.resume-reload-top{
+    width: 100%;
+    height: 40px;
+    padding-left: 14px;
+    line-height: 40px;
+    font-size: 14px;
+    background-color: whitesmoke;
+    border: 1px solid whitesmoke;
+    border-radius:5px;
+    box-shadow:0 0 5px rgb(192,192,192);
+}
+.resume-reload{
+    height: 300px;
+    text-align: center;
+}
+.resume{
+    padding-top: 100px;
+    height: 290px;
+}
+#location:focus{
+    outline:none;
+    border: 1px solid #ccc;
+}
+.reload-input{
+    width: 120px;
+    height: 34px;
+    border:none;
+    border: 1px solid #ccc;
+
+    border-left: none;
+    border-radius: 0px 5px 5px 0px;
+    background-color: whitesmoke;
+}
+.reload-input:focus {
+    outline:none;
+    border: 1px solid #ccc;
+    border-left: none;
+}
+.reload-input:hover{
+    border: 1px solid rgb(75,123,254);
+    background-color:rgb(75,123,254) ;
+    color: white;
+}
+#upload-again{
+    width: 280px;
+    height: 35px;
+    outline: none;
+    background-color: whitesmoke;
+    padding:0px 0px;
+    border: 1px solid #ccc;
+    border-top: none;
+    border-radius: 5px;
+    display: block;
+    margin: 0px auto;
+}
+#upload-again:hover{
+    border: 1px solid rgb(75,123,254);
+    background-color:rgb(75,123,254) ;
+    color: white;
+}
+#hide-name{
+    color: rgb(75,123,254);
+    display: none;
+}
+.atttion-txet{
+    width: 350px;
+    height: 30px;
+    border-radius: 5px;
+    display: block;
+    text-align: center;
+    margin-bottom: 30px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.resume-start{
+    width: 280px;;
+    height: 38px;
+    display: block;
+    margin: 0px auto;
+    background-color: whitesmoke;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 37px;
+    font-size: 18px;
+}
+.resume-start:hover{
+    background-color:rgb(75,123,254) ;
+    color: white;
+    cursor:pointer;
+}
+
+/*简历内容解析界面css*/
+#send_mail{
+    width: 120px;
+    height: 40px;
+    display: inline-block;
+    float: right;
+    margin-right: 14px;
+}
+#send_mail a{
+    display: inline-block;
+    width: 120px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    color: black;
+    font-size: 14px
+}
+#send_mail a:hover{
+    color: #1c94c4;
+    text-decoration: none;
+    font-size: 15px
+}
+#resume-content{
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    margin-top: 10px;
+    border: 1px solid whitesmoke;
+    border-radius:5px;
+    box-shadow:0 0 5px rgb(192,192,192);
+}
+.resume-content-top{
+    width: auto;
+    height: 50px;
+    margin-bottom: 0px;
+    line-height: 50px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    background-color: white;
+}
+.resume-chunk-name{
+    width: auto;
+    height: 40px;
+    padding: 0px 10px;
+    background-color:rgb(0,176,240);
+    border: 1px solid rgb(0,176,240);
+    border-radius:5px;
+    box-shadow:0 0 5px rgb(0,176,240);
+}
+.resume-chunk-name p{
+    width: auto;
+    height: 40px;
+    line-height: 40px;
+    font-size: 18px;
+    font-family: "黑体";
+}
+/*需要100%才能充满，如果auto只是文字宽度*/
+.base-information{
+    width: 100%;
+    height: 300px;
+    background-color: white;
+}
+.base-information-content-left{
+    width: 100%;
+    height: 300px;
+    border: 1px solid whitesmoke;
+}
+.base-information-content-right-top{
+    width: 100%;
+    height: 150px;
+    border-right: 1px solid whitesmoke;
+}
+.base-information-png{
+    width: 100%;
+    height: 150px;
+    background-color:#8cccec;
+}
+.base-information-content-right-buttom{
+    width: 100%;
+    height: 150px;
+    border-right: 1px solid whitesmoke;
+}
+.base-information-table{
+    width: 100%;
+    height: 49px;
+    text-align: center;
+    border: 1px solid whitesmoke;
+}
+.chunk-education-content{
+    width: 100%;
+    height: auto;
+    font-size: 14px;
+    background-color: white ;
+    padding-bottom:20px ;
+    padding-left: 50px;
+    padding-right: 60px;
+}
+
+.chunk-content{
+    width: 100%;
+    height: auto;
+    font-size: 14px;
+    background-color: white ;
+    font-family: Chinese Quote,-apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Helvetica Neue,Helvetica,Arial,sans-serif;
+    padding-bottom:20px ;
+    padding-left: 50px;
+    padding-right: 60px;
+}
+
+/*导出简历模块*/
+.crerat-files{
+    width: auto;
+    height: 40px;
+    background-color: whitesmoke;
+    margin-top: 8px;
+    vertical-align: middle;
+    border: 1px solid whitesmoke;
+    border-radius:5px;
+    box-shadow:0 0 5px rgb(192,192,192);
+
+}
+.drop-down{
+    float: right;
+    margin-right: 0px;
+    margin-bottom: 0px;
+}
+ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.drop-down-content{
+    width: 130px;
+    height: 35px;
+}
+.drop-down-content a{
+    width: 130px;
+    height: 33px;
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    line-height: 35px;
+    color: black;
+    font-size: 14px;
+}
+.drop-down-content a:hover{
+    text-decoration: none;
+    color: #1c94c4;
+    font-size: 15px;
+}
+.drop-down-select{
+    background-color: whitesmoke;
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    transition: all 1s ease;
+    position: relative;
+    z-index:9999;
+}
+.drop-down-select li a{
+    text-decoration: none;
+}
+.drop-down-select li:hover a{
+    background-color: #01a7b3;
+    position: relative;
+    z-index:9999;
+}
+.drop-down .drop-down-content:hover .drop-down-select{
+    opacity: 1;
+    height: auto;
+}

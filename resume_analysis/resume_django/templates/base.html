@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Creative - Bootstrap 3 Responsive Admin Template">
+    <meta name="author" content="GeeksLabs">
+    <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
+
+    <title>简历解析平台</title>
+    <!--自定义css-->
+    <link href="/static/css/resume.css" rel="stylesheet">
+    <link href="/static/css/education.css" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <!-- bootstrap theme -->
+    <link href="/static/css/bootstrap-theme.css" rel="stylesheet">
+    <!-- javascripts -->
+    <script src="/static/js/jquery-1.8.3.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+
+    <!--    导出pdf-->
+    <script src="/static/js/jsPdf.debug.js"></script>
+    <script src="/static/js/html2canvas.js"></script>
+</head>
+<style>
+    #warning-all{
+        width: 100%;
+        height: 60px;
+        padding: 10px 0px;
+    }
+    #warning-content{
+        width: 200px;
+        height: 40px;
+        margin: auto;
+        border: 1px solid whitesmoke;
+        border-radius:5px;
+        box-shadow:0 0 5px whitesmoke;
+        background-color: #8cccec;
+        color: white;
+        line-height: 40px;
+        text-align: center;
+        display: none;
+    }
+</style>
+<body>
+    <div id="container">
+        <div class="resume-top">
+            <a href="/" class="resume-logo"> pactera </a>
+        </div>
+        <div id="warning-all">
+            <div id="warning-content"></div>
+        </div>
+        <div id="main-content row">
+            <div class="col-md-1"></div>
+            <div class="wrapper col-md-10">
+                {% block mainbody %}
+                <p>original page</p>
+                {% endblock %}
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+    </div>
+<!--    简历解析-->
+    <script>
+          $('#resume-parse').click(function () {
+            var file_name=$('#hide-name').text();
+            var default_name='简历正在上传中...请稍后'
+            if (file_name==1||file_name==default_name){
+                 alert('简历正在上传中...请稍后')
+                 return  true
+            };
+
+            $.ajax({
+               url:"/resume_path/",
+               type:"POST",
+               data:{'file_name':file_name},
+               success:function (result) {
+                   if(result.state==0){
+                     var file_path= result.file_path
+                     var form = $('<form method="POST" action="/resume/">');
+                     form.append($('<input type="hidden" name="file_path" value="'+ file_path +'">'));
+                     $('body').append(form);
+                     form.submit()
+                   }
+                   else{
+                       alert(result.default_alert)
+                       }
+               }
+            })
+
+          })
+    </script>
+<!--    简历上传-->
+    <script>
+            $(function () {
+                var $input =  $("#i-file");
+                // ①为input设定change事件
+                $input.change(function () {
+                //    ②如果value不为空，调用文件加载方法
+                    if($(this).val() != ""){
+                        fileLoad(this);
+                    }
+                })
+            })
+            //③创建fileLoad方法用来上传文件
+            function fileLoad(ele){
+                  //④创建一个formData对象
+                var formData = new FormData();
+                //⑤获取传入元素的val
+                var name = $(ele).val();
+                  //⑥获取files
+                var files = $(ele)[0].files[0];
+                //⑦将name 和 files 添加到formData中，键值对形式
+                formData.append("file_name", files);
+                formData.append("name", name);
+                var default_name='简历正在上传中...请稍后'
+                $("#hide-name").text(default_name);
+                $.ajax({
+                    url: "/upload/",
+                    type: 'POST',
+                    data: formData,
+                    processData: false,// ⑧告诉jQuery不要去处理发送的数据
+                    contentType: false, // ⑨告诉jQuery不要去设置Content-Type请求头
+                    beforeSend: function () {
+                       //⑩发送之前的动作
+                        $('#hide-name').css("display", "inline");
+                    },
+                    success: function (result) {
+                       //11成功后的动作
+                        if (result.state == 0){
+                            $("#i-file").attr("value","");
+                            $("#hide-name").text(result.file_name);
+                            $("#warning-content").text('简历上传成功')
+                            $("#warning-content").show()
+                            setTimeout(append_remove,3000)
+                        }
+                        else {
+                            alert('仅支持pdf，doc，docx，mht，html，txt格式的解析')
+                        }
+
+                    },
+                    error : function (result) {
+                        //12出错后的动作
+                        alert("简历上传出错了，请重新上传");
+                    }
+                });
+            }
+
+      </script>
+<!--    发送邮件-->
+    <script>
+          $('#send_mail').click(function () {
+            var email=$('#email').text();
+            var name= $('#name').text();
+            $.ajax({
+               url:"/shows/email/",
+               type:"POST",
+               data:{'email':email,'name':name},
+               success:function (result) {
+                   if(result.state==0){
+                       $("#warning-content").text('邮件发送成功')
+                       $("#warning-content").show()
+                       setTimeout(append_remove,3000)
+                   }
+               }
+            })
+
+          })
+    </script>
+<!--    隐藏显示警告-->
+    <script>
+        function append_remove() {
+            $("#warning-content").hide()
+        }
+    </script>
+<!--    导出word-->
+    <script>
+          $('#dowload-word').click(function () {
+            var template_type=$('#dowload-word').text();
+            var name=$('#name').text();
+            var gender=$('#gender').text();
+            var birthdata=$('#birthdata').text();
+            var first_address=$('#first_address').text();
+            var english=$('#english').text();
+            var years_working=$('#years_working').text();
+
+            var email=$('#email').text();
+            var phone=$('#phone').text();
+            var university=$('#university').text();
+            var major=$('#major').text();
+            var education=$('#education').text();
+            var now_address=$('#now_address').text();
+
+            var education_experience=$('#education_experience').text();
+            var skills=$('#skills').text();
+            var work_experience=$('#work_experience').text();
+            var projects_experience=$('#projects_experience').text();
+            var my_rewards=$('#my_rewards').text();
+            var my_introduction=$('#my_introduction').text();
+            var additional_information=$('#additional_information').text();
+
+            $.ajax({
+               url:"/shows/getpath/",
+               type:"POST",
+               data:{'template_type':template_type,'name':name,'gender':gender,'birthdata':birthdata,'first_address':first_address,'english':english,'years_working':years_working,
+               'email':email,'phone':phone,'university':university,'major':major,'education':education,'now_address':now_address,'education_experience':education_experience,
+               'skills':skills,'work_experience':work_experience,'projects_experience':projects_experience,'my_rewards':my_rewards,'my_introduction':my_introduction,'additional_information':additional_information},
+               success:function (result) {
+                   if(result.state==0){
+                     var path_name= result.path_name
+                     var file_name= result.file_name
+                     var form = $('<form method="POST" action="/shows/download/">');
+                     form.append($('<input type="hidden" name="path_name" value="'+ path_name +'">'));
+                     form.append($('<input type="hidden" name="file_name" value="'+ file_name +'">'));
+
+                     $('body').append(form);
+                     form.submit();
+
+                   }
+               }
+            })
+
+          })
+    </script>
+<!--    导出excel-->
+    <script>
+          $('#dowload-excel').click(function () {
+            var template_type=$('#dowload-excel').text();
+            var name=$('#name').text();
+            var gender=$('#gender').text();
+            var birthdata=$('#birthdata').text();
+            var first_address=$('#first_address').text();
+            var english=$('#english').text();
+            var years_working=$('#years_working').text();
+
+            var email=$('#email').text();
+            var phone=$('#phone').text();
+            var university=$('#university').text();
+            var major=$('#major').text();
+            var education=$('#education').text();
+            var now_address=$('#now_address').text();
+
+            var education_experience=$('#education_experience').text();
+            var skills=$('#skills').text();
+            var work_experience=$('#work_experience').text();
+            var projects_experience=$('#projects_experience').text();
+            var my_rewards=$('#my_rewards').text();
+            var my_introduction=$('#my_introduction').text();
+            var additional_information=$('#additional_information').text();
+
+            $.ajax({
+               url:"/shows/getpath/",
+               type:"POST",
+               data:{'template_type':template_type,'name':name,'gender':gender,'birthdata':birthdata,'first_address':first_address,'english':english,'years_working':years_working,
+               'email':email,'phone':phone,'university':university,'major':major,'education':education,'now_address':now_address,'education_experience':education_experience,
+               'skills':skills,'work_experience':work_experience,'projects_experience':projects_experience,'my_rewards':my_rewards,'my_introduction':my_introduction,'additional_information':additional_information},
+               success:function (result) {
+                   if(result.state==0){
+                     var path_name= result.path_name
+                     var file_name= result.file_name
+                     var form = $('<form method="POST" action="/shows/download/">');
+                     form.append($('<input type="hidden" name="path_name" value="'+ path_name +'">'));
+                     form.append($('<input type="hidden" name="file_name" value="'+ file_name +'">'));
+
+                     $('body').append(form);
+                     form.submit();
+
+                   }
+               }
+            })
+
+          })
+    </script>
+<!--    导出pdf-->
+    <script src="/static/js/jsPdf.debug.js"></script>
+    <script src="/static/js/html2canvas.js"></script>
+    <script type="text/javascript">
+        var downPdf = document.getElementById("dowload-pdf");
+        downPdf.onclick = function () {
+            html2canvas(
+                    document.getElementById("resume-content"),
+                    {
+                        dpi: 500,//导出pdf清晰度
+                        onrendered: function (canvas) {
+                            var contentWidth = canvas.width;
+                            var contentHeight = canvas.height;
+
+                            //一页pdf显示html页面生成的canvas高度;
+                            var pageHeight = contentWidth / 592.28 * 841.89;
+                            //未生成pdf的html页面高度
+                            var leftHeight = contentHeight;
+                            //pdf页面偏移
+                            var position = 0;
+                            //html页面生成的canvas在pdf中图片的宽高（a4纸的尺寸[595.28,841.89]）
+                            var imgWidth = 595.28;
+                            var imgHeight = 592.28 / contentWidth * contentHeight;
+
+                            var pageData = canvas.toDataURL('image/jpeg', 1.0);
+                            var pdf = new jsPDF('', 'pt', 'a4');
+
+                            //有两个高度需要区分，一个是html页面的实际高度，和生成pdf的页面高度(841.89)
+                            //当内容未超过pdf一页显示的范围，无需分页
+                            if (leftHeight < pageHeight) {
+                                pdf.addImage(pageData, 'JPEG', 0, 0, imgWidth, imgHeight);
+                            } else {
+                                while (leftHeight > 0) {
+                                    pdf.addImage(pageData, 'JPEG', 0, position, imgWidth, imgHeight)
+                                    leftHeight -= pageHeight;
+                                    position -= 841.89;
+                                    //避免添加空白页
+                                    if (leftHeight > 0) {
+                                        pdf.addPage();
+                                    }
+                                }
+                            }
+                            var name=$('#name').text();
+                            pdf.save(name+'.pdf');
+                        },
+                        //背景设为白色（默认为黑色）
+                        background: "#fff"
+                    })
+        }
+    </script>
+
+<!--重新上传-->
+    <script>
+          $('#upload-again').click(function () {
+            $("#hide-name").text('');
+          })
+    </script>
+
+<!--    <script>-->
+<!--        $(document).ready(function(){-->
+<!--              $("#photo").attr ("src", "/static/images/924d0867b0.png");-->
+<!--        });-->
+
+<!--    </script>-->
+
+</body>
+
+</html>

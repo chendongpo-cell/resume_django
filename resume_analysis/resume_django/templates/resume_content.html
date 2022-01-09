@@ -1,0 +1,210 @@
+{% extends "base.html" %} {% block mainbody %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <!--overview start-->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="resume-home">
+                            <a href="\">返回主界面</a>
+                            <div id="send_mail">
+                                <a href="javascript:void(0)">发送邮件</a>
+                            </div>
+                    </div>
+                    <div class="crerat-files">
+                        <ul class="drop-down">
+                            <li class="drop-down-content">
+                                <a href="javascript:void(0)">导出简历模板</a>
+                                <ul class="drop-down-select">
+                                    <li><a href="javascript:void(0)" id="dowload-word">Word模板</a></li>
+                                    <li><a href="javascript:void(0)" id="dowload-excel">Excel模板</a></li>
+                                    <li><a href="javascript:void(0)" id="dowload-pdf">Pdf模板</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    {% if resume_data %}
+
+                    <div id="resume-content" >
+                        <p class="resume-content-top">个人简历</p>
+                        <!--基本信息-->
+                        <div class="resume-chunk-name"><p>基本信息【必填】</p></div>
+                        <div class="base-information row" style="margin-left: 0px;margin-right: 0px">
+                            <div class="col-sm-2" style="padding-right: 0px;padding-left: 0px">
+                                <table border="1" class="base-information-content-left">
+                                    <tr>
+                                        <td class="base-information-table">姓名</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="base-information-table">出生年月</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="base-information-table">英语水平</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="base-information-table">邮箱地址</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="base-information-table">毕业院校</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="base-information-table">学历</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-sm-3" style="padding-right: 0px;padding-left: 0px">
+                                <table border="1" class="base-information-content-left">
+                                    <tr>
+                                        <td class="base-information-table" id="name">{{resume_data.name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="base-information-table" id="birthdata">{{resume_data.birthdata}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="base-information-table" id="english">{{resume_data.english}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="base-information-table" id="email">{{resume_data.email}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="base-information-table" id="university">{{resume_data.university}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="base-information-table" id="education">{{resume_data.education}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-sm-7" style="padding-right: 0px;padding-left: 0px">
+                                <div class="base-information-content-right-top" >
+                                    <div class="col-sm-4" style="padding-right: 0px;padding-left: 0px">
+                                        <table border="1" class="base-information-content-right-top">
+                                            <tr>
+                                                <td class="base-information-table">性别</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="base-information-table">户籍所在地</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="base-information-table">工作年限</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="col-sm-5" style="padding-right: 0px;padding-left: 0px">
+                                        <table border="1" class="base-information-content-right-top">
+                                            <tr>
+                                                <td class="base-information-table" id="gender">{{resume_data.gender}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="base-information-table" id="first_address">{{resume_data.first_address}}</td>                                            </tr>
+                                            <tr>
+                                                <td class="base-information-table" id="years_working">{{resume_data.years_working}}</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    {% load static %}
+                                    <div class="base-information-png col-sm-3" style="padding-right: 0px;padding-left: 0px;">
+                                        <img src="{% static 'photo/' %}{{resume_data.photo}}"  width="100%" height="100%">
+                                    </div>
+                                </div>
+                                <div class="base-information-content-right-buttom">
+                                        <div class="col-sm-6" style="padding-right: 0px;padding-left: 0px">
+                                        <table border="1" class="base-information-content-right-top">
+                                            <tr>
+                                                <td class="base-information-table">手机号码</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="base-information-table">专业</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="base-information-table">现居住地址</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                        <div class="col-sm-6" style="padding-right: 0px;padding-left: 0px">
+                                        <table border="1" class="base-information-content-right-top">
+                                            <tr>
+                                                <td class="base-information-table" id="phone">{{resume_data.phone}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="base-information-table" id="major">{{resume_data.major}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="base-information-table" id="now_address">{{resume_data.now_address}}</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!--教育经历-->
+                        <div class="resume-chunk-name"><p>教育经历</p></div>
+                        {% for education_list in resume_data.education_experience %}
+                        <div class="chunk-education-content" id="education_experience">
+                            <div>
+                                <div class="education_experience_title_university">{{education_list.0}}</div>
+                                <div class="education_experience_title_time">{{education_list.1}}</div>
+                            </div>
+
+                            <div class="education_experience_title_name"><span>学位：</span>{{education_list.2}}
+                            </div>
+
+                            <div class="education_experience_title_name"><span>专业：</span>{{education_list.3}}
+                            </div>
+                        </div>
+                        {% endfor %}
+
+                        <!--技能专长-->
+                        <div class="resume-chunk-name" ><p>技能专长</p></div>
+                        <div class="chunk-content" style="white-space:pre-line" id="skills">
+                            {{resume_data.skills}}
+                        </div>
+
+                        <!--工作经历-->
+                        <div class="resume-chunk-name"><p>工作经历</p></div>
+                        <div class="chunk-content" style="white-space:pre-line" id="work_experience">
+                            {{resume_data.work_experience}}
+                        </div>
+
+                        <!--项目经历-->
+                        <div class="resume-chunk-name"><p>项目经历</p></div>
+                        <div class="chunk-content" style="white-space:pre-line" id="projects_experience">
+                            {{resume_data.projects_experience}}
+                        </div>
+                        <!--获奖-->
+                        <div class="resume-chunk-name"><p>证书奖项</p></div>
+                        <div class="chunk-content" style="white-space:pre-line" id="my_rewards">
+                            {{resume_data.my_rewards}}
+                        </div>
+
+                        <!--自我评价-->
+                        <div class="resume-chunk-name"><p>自我评价</p></div>
+                        <div class="chunk-content" style="white-space:pre-line" id="my_introduction">
+                            {{resume_data.my_introduction}}
+                        </div>
+                        <!--信息补充-->
+                        <div class="resume-chunk-name"><p>补充信息</p></div>
+                        <div class="chunk-content" style="white-space:pre-line" id="additional_information">
+                            {{resume_data.additional_information}}
+                        </div>
+                    </div>
+                    </div>
+
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+</div>
+
+{% endblock %}
